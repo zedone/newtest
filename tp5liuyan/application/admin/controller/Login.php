@@ -18,6 +18,8 @@ class Login extends Controller{
 			return;
 		}
 
+		return $this->fetch();
+
 	}
 
 

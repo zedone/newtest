@@ -42,7 +42,8 @@ class Admin extends Base
     }
 
     public function lst(){
-        $adminers = Db::name('admin')->select();
+        $lsts = new login(); 
+        $adminers = $lsts->lists();
         //dump($adminers);die;
         $this->assign('adminers',$adminers);
 
@@ -52,10 +53,13 @@ class Admin extends Base
 
     public function del(){
         $id=input('id');
-        if(db('admin')->delete($id)){
-                    $this->success('删除管理员成功','lst');
+        //dump($id);die;
+        $dels = new login();
+        $infos = $dels->del($id);
+        if($infos){
+                $this->success('删除管理员成功','lst');
             }else{
-                    $this->error('删除管理员失败');
+                $this->error('删除管理员失败');
             
         }
     }
