@@ -83,10 +83,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">cid</label>
-                                        <div class="col-md-12">
-                                            <option value="$cates['id']"></option>
-                                        </div>
+                                         <select name="cid">
+                                            <option value="0">顶级栏目</option>
+                                            {volist name="cates" id="vo"}
+                                            <option value="{$vo.id}"><?php echo str_repeat('-',$vo['level'])?>{$vo.catename}</option>
+                                            {/volist}
+                                        </select>
                                     </div>
                                 
                                     <div class="form-group">

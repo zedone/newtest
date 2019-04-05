@@ -1,6 +1,5 @@
 <?php
 namespace app\admin\model;
-use think\Db;
 use think\Model;
 
 class Message extends Model{
@@ -24,7 +23,7 @@ class Message extends Model{
 	}
 
 	public function mlists($id){
-		$res = $this->find($id);
+		$res = $this->where('id',$id)->find();
 		return $res;
 	}
 
@@ -34,7 +33,7 @@ class Message extends Model{
 	}
 
 	public function lists(){
-		$message = $this->alias('m')->join('admin a','a.id=m.userid')->field('m.id,m.userid,m.message,a.name')->order('m.id desc')->select();
+		$message = $this->alias('m')->join('admin a','a.id=m.userid')->join('cate c','c.id=m.cid')->select();
 		return $message;
 	}
 }

@@ -35,20 +35,19 @@
                         <thead class="">
                             <tr>
                                 <th class="text-center">ID</th>
-                                <th class="text-center">userid</th>
                                 <th class="text-center">username</th>
-                               <!--  <th class="text-center">userid</th> -->
+                                <th class="text-center">所属栏目</th>
                                 <th class="text-center">message</th>
                                 <th class="text-center">操作</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             {volist name="message" id="vo"}
                             <tr>
                                 <td align="center">{$vo.id}</td>
-                                <td align="center">{$vo.userid}</td>
                                 <td align="center">{$vo.name}</td>
-                                <!-- <td align="center">{$vo.userid}</td> -->
+                                <td align="center">{$vo.catename}</td>
                                 <td align="center"><?php echo mb_substr($vo['message'],0,7,'utf-8'); 
                                 if(strlen($vo['message']>8)){echo '.....';};
                                  ?></td>
@@ -62,7 +61,7 @@
                                 </td>
                             </tr>
                             {/volist}
-                            </form>
+
                         </tbody>
                     </table>
                 </div>

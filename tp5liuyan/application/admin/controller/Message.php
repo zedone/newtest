@@ -1,8 +1,9 @@
 <?php
 namespace app\admin\controller;
-use app\admin\controller\Base;
 use think\Db;
-use app\admin\model\Message as Admessage;
+use app\admin\controller\Base;
+use app\admin\model\Message as MessageModel;
+use app\admin\model\Cate as CateModel;
 class Message extends Base
 {
     public function index()
@@ -13,9 +14,10 @@ class Message extends Base
             $data = [
                 'message' => input('message'),
                 'userid' => $userid,
+                'cid'   => input('cid'), 
             ] ;         
            
-    		$tianmessage = new Admessage();
+    		$tianmessage = new MessageModel();
     		$res = $tianmessage->addmessage($data);
     		if($res){
     			$this->success('success message',url('Message/index'));
@@ -23,17 +25,16 @@ class Message extends Base
     			$this->error('failed');
     		}
     		return;
-    	}
-
+    	}     
+        $cate = new CateModel();
+        $cates = $cate->catetree();       
+        $this->assign('cates',$cates);
         return $this->fetch();
     }
 
    public function lst()
     {
-        //$message = Db::name('message')->select();
-        // $message = Db::name('message')->alias('m')->join('admin a','a.id=m.userid')->field('m.id,m.userid,m.message,a.name')->order('m.id desc')->select();
-        //dump($message);die;
-        $lists = new Admessage();
+        $lists = new MessageModel;
         $message = $lists->lists();
         $this->assign('message',$message);
         return $this->fetch();
@@ -41,29 +42,33 @@ class Message extends Base
 
     public function edit(){
         $id = input('id');
-        $mess = new Admessage();
+        echo $id."<br>";
+        echo session('id');
+        $mess = new MessageModel; 
         $mess = $mess->mlists($id);
+        //dump($mess['id']);die();
         if(request()->isPost()){
-
             $data = [
                 //'id' => input('userid'),
+                'catename' => input('cid'),
                 'message' => input('message'),
             ];
-           // echo session('id');
-            //dump($mess['userid']);die();
             if(session('id')!==$mess['userid']){
                 $this->error('不能修改他人信息','lst');
             }
-            //dump($data);die();
+
             if($mess->editmessage($data)){
                 $this->success('success','lst');
             }else{
                 $this->error('fail');
             }
-            return;
+           // return;
         }
         $this->assign('mess',$mess);
-        return $this->fetch('edit');
+        // $cate = new CateModel();
+        // $cateres= $cate->lists();
+        // $this->assign('cateres',$cateres);
+        return $this->fetch();
     }
 
     public function del($id){
