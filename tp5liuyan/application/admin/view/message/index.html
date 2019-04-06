@@ -84,9 +84,9 @@
                                     </div>
                                     <div class="form-group">
                                          <select name="cid">
-                                            <option value="0">顶级栏目</option>
-                                            {volist name="cates" id="vo"}
-                                            <option value="{$vo.id}"><?php echo str_repeat('-',$vo['level'])?>{$vo.catename}</option>
+                                            <option value="0">请选择栏目</option>
+                                            {volist name="cates" id="vo1"}
+                                            <option value="{$vo1.id}"><?php echo str_repeat('-',$vo1['level'])?>{$vo1.catename}</option>
                                             {/volist}
                                         </select>
                                     </div>

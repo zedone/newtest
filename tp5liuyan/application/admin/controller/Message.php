@@ -12,11 +12,12 @@ class Message extends Base
     	if(request()->isPost()){
             $userid = session('id');
             $data = [
+                //'id' => input('id'),
                 'message' => input('message'),
                 'userid' => $userid,
                 'cid'   => input('cid'), 
             ] ;         
-           
+            //var_dump($data);die();
     		$tianmessage = new MessageModel();
     		$res = $tianmessage->addmessage($data);
     		if($res){
@@ -36,6 +37,7 @@ class Message extends Base
     {
         $lists = new MessageModel;
         $message = $lists->lists();
+        //dump($message);die();
         $this->assign('message',$message);
         return $this->fetch();
     }

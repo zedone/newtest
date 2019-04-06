@@ -33,7 +33,13 @@ class Message extends Model{
 	}
 
 	public function lists(){
-		$message = $this->alias('m')->join('admin a','a.id=m.userid')->join('cate c','c.id=m.cid')->select();
+		$message = $this->alias('m')->field('m.id as mid,c.id as cateid,a.id as aid,m.*,c.id,c.catename,a.id,a.name')->join('cate c','m.cid=c.id','LEFT')->join('admin a','m.userid=a.id')->select();
 		return $message;
+		// $Data  =  M('a')->where($where)
+  //                           ->Field('a.name as aname,b.name as uname,a.*')
+  //                           ->join('b on b.jb_id=a.id','LEFT')
+  //                           ->order('a.id desc')
+  //                           ->select()
+
 	}
 }

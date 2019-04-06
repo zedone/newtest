@@ -17,7 +17,7 @@ class Admin extends Base
     	//判断是否是post表单提交
     	if(request()->isPost()){
     		$data = input('post.');
-    		//验证
+            //验证
     		$validate=\think\Loader::validate('Admin');
     		if(!$validate->scene('add')->check($data)){
                 $this->error($validate->getError());die;

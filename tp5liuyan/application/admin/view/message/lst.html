@@ -35,33 +35,31 @@
                         <thead class="">
                             <tr>
                                 <th class="text-center">ID</th>
-                                <th class="text-center">username</th>
+                                <th class="text-center">用户名</th>
                                 <th class="text-center">所属栏目</th>
-                                <th class="text-center">message</th>
+                                <th class="text-center">留言</th>
                                 <th class="text-center">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             {volist name="message" id="vo"}
                             <tr>
-                                <td align="center">{$vo.id}</td>
+                                <td align="center">{$vo.mid}</td>
                                 <td align="center">{$vo.name}</td>
                                 <td align="center">{$vo.catename}</td>
                                 <td align="center"><?php echo mb_substr($vo['message'],0,7,'utf-8'); 
                                 if(strlen($vo['message']>8)){echo '.....';};
                                  ?></td>
                                 <td align="center">
-                                    <a href="{:url('message/edit',array('id'=>$vo['id']))}" class="btn btn-primary btn-sm shiny">
+                                    <a href="{:url('edit',array('id'=>$vo['mid']))}" class="btn btn-primary btn-sm shiny">
                                         <i class="fa fa-edit"></i> 编辑
                                     </a>
-                                    <a href="{:url('del',array('id'=>$vo['id']))}" onclick="return confirm('你确定要删除吗');" class="btn btn-danger btn-sm shiny">
+                                    <a href="{:url('del',array('id'=>$vo['mid']))}" onclick="return confirm('你确定要删除吗');" class="btn btn-danger btn-sm shiny">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </a>
                                 </td>
                             </tr>
                             {/volist}
-
                         </tbody>
                     </table>
                 </div>

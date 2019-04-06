@@ -3,9 +3,6 @@ namespace app\admin\model;
 use think\Model;
 class Cate extends Model {
 
-	public function lst(){
-		
-	}
 	public function catetree(){
 		$cates = $this->select();
 		// dump($cates);die;
