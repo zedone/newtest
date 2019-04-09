@@ -5,13 +5,7 @@ use think\Db;
 use app\admin\model\Admin as login;
 class Admin extends Base
 {
-    public function cyx(){
-        $redis = new \Redis();
-        $redis->connect('192.168.199.249','6379');
-        $redis->set('name','chenyx');
-       // $name = $redis->get('name');
 
-    }
     public function add()
     {
     	//判断是否是post表单提交
@@ -62,6 +56,13 @@ class Admin extends Base
                 $this->error('删除管理员失败');
             
         }
+    }
+
+    public function myRedis(){
+        $id = session('id');
+        $myredis = new login;
+        $result = $myredis->getInfoById($id);
+        dump($result);
     }
 
 }

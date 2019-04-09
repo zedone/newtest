@@ -2,6 +2,8 @@
 namespace app\admin\model;
 use think\Db;
 use think\Model;
+use think\Cache;
+use cache\Cache as MyCache;
 
 class Admin extends Model{
 	  const LOGIN_FAIL=1;
@@ -60,19 +62,26 @@ class Admin extends Model{
 		//dump($info);die;
 		return $info;
 	}
-}
 
-	  // public function chen(){
-   //      $redis = new \Redis();
-   //      $redis->connect('192.168.199.249','6379');
-   //      $key = "user_info_{$id}";
-   //      $info = $redis->get($key);
-   //      if(empty($info)){
-   //          $info = $this->where('id',$id)->find();
-   //          $info = $info->toArray();
-   //          $info = serialize($info);
-   //          $redis->setex($key,600,$info);
-   //      }
-   //      $info = unserialize($info);
-   //      return $info;
-   //  }
+
+	//源生redis
+	 public function getInfoById($id) {
+        $redis = new \Redis();
+        $redis->connect('192.168.199.249', '6379');
+
+        $key = "user_info_{$id}";
+        $info = $redis->get($key);
+
+        if (empty($info)) {
+            $info = $this->where('id', $id)->find();
+            $info = $info->toArray();
+            $info = serialize($info);
+            $redis->setex($key, 600, $info);
+        }
+
+        $info = unserialize($info);
+        return $info;
+    }
+
+	
+}
