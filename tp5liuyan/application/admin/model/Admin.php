@@ -83,5 +83,16 @@ class Admin extends Model{
         return $info;
     }
 
+     public function getInfoByIdv1($id) {
+        $key = "user_info_{$id}";
+        $info = Cache::get($key);
+        if (empty($info)) {
+            $info = $this->where('id', $id)->find();
+            $info = $info->toArray();
+            Cache::set($key,$info,10);
+        }
+        return $info;
+    }
+
 	
 }

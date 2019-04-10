@@ -61,7 +61,7 @@ class Admin extends Base
     public function myRedis(){
         $id = session('id');
         $myredis = new login;
-        $result = $myredis->getInfoById($id);
+        $result = $myredis->getInfoByIdv1($id);
         dump($result);
     }
 

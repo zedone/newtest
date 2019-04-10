@@ -38,6 +38,7 @@
                                 <th class="text-center">用户名</th>
                                 <th class="text-center">所属栏目</th>
                                 <th class="text-center">留言</th>
+                                <th class="text-center">图片</th>
                                 <th class="text-center">操作</th>
                             </tr>
                         </thead>
@@ -50,6 +51,13 @@
                                 <td align="center"><?php echo mb_substr($vo['message'],0,7,'utf-8'); 
                                 if(strlen($vo['message']>8)){echo '.....';};
                                  ?></td>
+                                 <td align="center">
+                                    {if condition="$vo['pic'] neq '' "}
+                                        <img src="http://localhost/tp5liuyan/public/{$vo.pic}" height="50" width="50">
+                                    {else/}
+                                    暂无缩略图
+                                    {/if}
+                                </td>
                                 <td align="center">
                                     <a href="{:url('edit',array('id'=>$vo['mid']))}" class="btn btn-primary btn-sm shiny">
                                         <i class="fa fa-edit"></i> 编辑
