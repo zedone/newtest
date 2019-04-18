@@ -17,23 +17,11 @@ class Message extends Base
                 'message' => input('message'),
                 'userid' => $userid,
                 'cid'   => input('cid'), 
-                'pic' => input('pic')
-            ] ;         
-            $file = request()->file('pic');
+                //'pic' => input('pic')
+            ];         
             $tianmessage = new MessageModel;
-            
-            if($file){
-                $info = $file->validate(['size'=>17000,'ext'=>'jpg,png,gif'])->move(ROOT_PATH . 'public' . DS . 'uploads');
-                //$info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-                if($info){
-                    $pic = 'uploads/'.$info->getSaveName();
-                    $data['pic'] = $pic;
-                       // $data['pic']='/static/uploads/'.$info->getSaveName();
-                }else{
-                     // 上传失败获取错误信息
-                    echo $file->getError();
-                }
-            }
+            $fileName = \util\File::uploads();
+            $data['pic']=$fileName;
             //dump($info);die();
             $res = $tianmessage->addmessage($data);
     		if($res){
